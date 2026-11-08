@@ -548,3 +548,32 @@ if(d.cl){cl=d.cl;co='';$('#v').innerHTML=V.clients()}else if(d.sc!=null)runsc(+d
 lab();document.addEventListener('click',e=>{if(!e.target.closest('#thm'))return;const n=document.documentElement.dataset.theme==='light'?'dark':'light';document.documentElement.dataset.theme=n;try{localStorage.setItem('aip-theme',n)}catch(x){}lab()})})();
 render();
 </script></body></html>
+
+/* Hero gradient motion: keep this after theme rules so the light-theme
+   background shorthand cannot reset the animated gradient sizing. */
+.hero h1{
+  background-size:260% 100%;
+  background-position:0% 50%;
+  animation:auditGlowFlow 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 9px #8ab4f844);
+  will-change:background-position,filter;
+}
+:root[data-theme="light"] .hero h1{
+  background-image:linear-gradient(90deg,#1a73e8 0%,#8430ce 48%,#c5221f 100%);
+  background-size:260% 100%;
+  background-position:0% 50%;
+  animation:auditGlowFlow 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 10px #8430ce55);
+}
+@keyframes auditGlowFlow{
+  0%,100%{background-position:0% 50%;filter:drop-shadow(0 0 7px #8ab4f844)}
+  50%{background-position:100% 50%;filter:drop-shadow(0 0 17px #c58af988)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero h1,:root[data-theme="light"] .hero h1{
+    animation:none;
+    background-position:50% 50%;
+    filter:none;
+    will-change:auto;
+  }
+}
