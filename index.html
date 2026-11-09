@@ -95,6 +95,34 @@ svg g[data-ly]{cursor:pointer}svg g[data-ly]:hover rect.b,svg g[data-ly].sel rec
 :root[data-theme="light"] .hero h1{background:linear-gradient(90deg,#1a73e8,#8430ce 60%,#c5221f);-webkit-background-clip:text;background-clip:text;color:transparent}
 :root[data-theme="light"] .nt.d{background:#1a73e81a;border-color:#1a73e8}:root[data-theme="light"] .nt.r{background:#1880381a;border-color:#188038}:root[data-theme="light"] .nt.w{background:#b060001a;border-color:#b06000}:root[data-theme="light"] .nt.a{background:#8430ce1a;border-color:#8430ce}
 :root[data-theme="light"] .card{box-shadow:0 1px 2px #1f1f1f12}
+
+/* Hero gradient motion: keep this after theme rules so the light-theme background shorthand cannot reset the animated gradient sizing. */
+.hero h1{
+  background-size:260% 100%;
+  background-position:0% 50%;
+  animation:auditGlowFlow 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 9px #8ab4f844);
+  will-change:background-position,filter;
+}
+:root[data-theme="light"] .hero h1{
+  background-image:linear-gradient(90deg,#1a73e8 0%,#8430ce 48%,#c5221f 100%);
+  background-size:260% 100%;
+  background-position:0% 50%;
+  animation:auditGlowFlow 5s ease-in-out infinite;
+  filter:drop-shadow(0 0 10px #8430ce55);
+}
+@keyframes auditGlowFlow{
+  0%,100%{background-position:0% 50%;filter:drop-shadow(0 0 7px #8ab4f844)}
+  50%{background-position:100% 50%;filter:drop-shadow(0 0 17px #c58af988)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero h1,:root[data-theme="light"] .hero h1{
+    animation:none;
+    background-position:50% 50%;
+    filter:none;
+    will-change:auto;
+  }
+}
 </style></head><body>
 <div class="top"><div class="logo">A</div><b>Audit Intelligence Platform</b><span class="tag">Synthetic demo data</span><span class="sp"></span><span class="tag g"><span class=dot></span>Live</span><span class="tag">Foundry + AIP</span><span class="tag">Gemini on Vertex AI</span><span class="tag g">All sources fresh</span><a class="btn" href="#sharing" style="text-decoration:none">Share</a><button class="btn s" id="thm" type="button">☀ Daylight</button></div>
 <div class="app"><nav class="side" id="nav">
@@ -548,32 +576,3 @@ if(d.cl){cl=d.cl;co='';$('#v').innerHTML=V.clients()}else if(d.sc!=null)runsc(+d
 lab();document.addEventListener('click',e=>{if(!e.target.closest('#thm'))return;const n=document.documentElement.dataset.theme==='light'?'dark':'light';document.documentElement.dataset.theme=n;try{localStorage.setItem('aip-theme',n)}catch(x){}lab()})})();
 render();
 </script></body></html>
-
-/* Hero gradient motion: keep this after theme rules so the light-theme
-   background shorthand cannot reset the animated gradient sizing. */
-.hero h1{
-  background-size:260% 100%;
-  background-position:0% 50%;
-  animation:auditGlowFlow 5s ease-in-out infinite;
-  filter:drop-shadow(0 0 9px #8ab4f844);
-  will-change:background-position,filter;
-}
-:root[data-theme="light"] .hero h1{
-  background-image:linear-gradient(90deg,#1a73e8 0%,#8430ce 48%,#c5221f 100%);
-  background-size:260% 100%;
-  background-position:0% 50%;
-  animation:auditGlowFlow 5s ease-in-out infinite;
-  filter:drop-shadow(0 0 10px #8430ce55);
-}
-@keyframes auditGlowFlow{
-  0%,100%{background-position:0% 50%;filter:drop-shadow(0 0 7px #8ab4f844)}
-  50%{background-position:100% 50%;filter:drop-shadow(0 0 17px #c58af988)}
-}
-@media(prefers-reduced-motion:reduce){
-  .hero h1,:root[data-theme="light"] .hero h1{
-    animation:none;
-    background-position:50% 50%;
-    filter:none;
-    will-change:auto;
-  }
-}
